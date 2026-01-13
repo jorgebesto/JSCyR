@@ -1,0 +1,571 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Construcción & Remodelación</title>
+<link rel="icon" type="image/png" href="Imagenes/WhatsApp Image 2026-01-12 at 12.34.19 AM.jpeg">
+
+<style>
+:root{
+    --azul:#1f3b4d;
+    --naranja:#f28c28;
+    --gris:#f5f5f5;
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Arial,sans-serif;}
+body{color:#333;line-height:1.6;background:#fafafa;}
+
+/* HEADER */
+header{
+    background:#fff;
+    border-bottom:4px solid var(--naranja);
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+header strong{color:var(--azul);font-size:22px;}
+nav a{
+    margin-left:20px;
+    text-decoration:none;
+    color:var(--azul);
+    font-weight:600;
+}
+nav a:hover{color:var(--naranja);}
+
+/* HERO */
+.hero{
+    background:linear-gradient(rgba(31,59,77,.75),rgba(31,59,77,.75)),
+    url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c") center/cover;
+    color:#fff;
+    padding:110px 40px;
+}
+.hero h1{font-size:44px;max-width:700px;}
+.hero p{margin:20px 0;max-width:600px;}
+.btn{
+    background:var(--naranja);
+    color:#fff;
+    padding:14px 30px;
+    border-radius:6px;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-block;
+    box-shadow:0 4px 12px rgba(242,140,40,.45);
+}
+.btn:hover{background:#e67e1f;}
+
+/* SECTIONS */
+section{
+    padding:80px 40px;
+    max-width:1200px;
+    margin:auto;
+}
+section h2{
+    text-align:center;
+    color:var(--azul);
+    font-size:34px;
+    margin-bottom:40px;
+    position:relative;
+}
+section h2::after{
+    content:"";
+    width:60px;
+    height:4px;
+    background:var(--naranja);
+    display:block;
+    margin:12px auto 0;
+    border-radius:8px;
+}
+
+/* ABOUT */
+.about{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+}
+
+/* SERVICES / CARDS */
+.services{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+.card{
+    background:#fff;
+    border-radius:12px;
+    padding:30px;
+    border:1px solid #eaeaea;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    text-align:center;
+    transition:.25s;
+}
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 28px rgba(0,0,0,.15);
+}
+.card h3{color:var(--azul);margin:15px 0 10px;}
+
+/* LOCATION TAG */
+.location-tag{
+    display:inline-block;
+    background:var(--azul);
+    color:#fff;
+    font-size:13px;
+    padding:4px 12px;
+    border-radius:20px;
+    margin-bottom:8px;
+}
+
+/* CAROUSEL */
+.carousel{
+    display:flex;
+    overflow-x:auto;
+    gap:14px;
+    scroll-behavior:smooth;
+    padding-bottom:8px;
+}
+.carousel > *{
+    flex:0 0 auto;
+    width:300px;
+}
+.carousel img,
+.carousel video{
+    width:100%;
+    height:auto;
+    max-height:320px;
+    object-fit:contain;
+    border-radius:12px;
+    background:#000;
+}
+.carousel::-webkit-scrollbar{height:8px;}
+.carousel::-webkit-scrollbar-thumb{
+    background:#bbb;
+    border-radius:10px;
+}
+
+/* PROCESS */
+.why{
+    background:var(--gris);
+    border-radius:14px;
+}
+.why ul{
+    max-width:850px;
+    margin:auto;
+    list-style:none;
+}
+.why li{
+    margin-bottom:15px;
+    padding-left:28px;
+    position:relative;
+}
+.why li::before{
+    content:"✔";
+    position:absolute;
+    left:0;
+    color:var(--naranja);
+    font-weight:bold;
+}
+
+/* FORM */
+.form-container{
+    max-width:700px;
+    margin:auto;
+    background:#fff;
+    padding:40px;
+    border-radius:14px;
+    box-shadow:0 4px 20px rgba(0,0,0,.1);
+}
+form{display:grid;gap:15px;}
+input,select,textarea{
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:15px;
+}
+textarea{resize:none;height:120px;}
+
+/* FOOTER */
+footer{
+    background:var(--azul);
+    color:#fff;
+    text-align:center;
+    padding:25px;
+    border-top:6px solid var(--naranja);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    header{flex-direction:column}
+    nav{margin-top:10px}
+    .hero h1{font-size:34px}
+    .about{grid-template-columns:1fr}
+    .carousel > *{width:85%}
+}
+/* BRAND (LOGO + NOMBRE) */
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brand img{
+    width:48px;          /* Tamaño ideal */
+    height:48px;
+    object-fit:contain;
+    border-radius:6px;   /* Opcional */
+}
+
+.brand strong{
+    color:var(--azul);
+    font-size:22px;
+    white-space:nowrap;
+}
+/* ================================
+   LÍNEAS VERTICALES CORPORATIVAS
+================================ */
+
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    top:0;
+    bottom:0;
+    width:6px;
+    z-index:0;               /* Detrás del contenido */
+}
+
+/* Línea azul (principal) */
+body::before{
+    left:0;
+    background:var(--azul);
+}
+
+/* Línea naranja (secundaria) */
+body::after{
+    left:8px;
+    background:var(--naranja);
+}
+
+/* Empuja el contenido para que no quede encima */
+body{
+    padding-left:20px;
+}
+
+/* Ocultar líneas en móvil (opcional) */
+@media (max-width:768px){
+    body::before,
+    body::after{
+        display:none;
+    }
+
+    body{
+        padding-left:0;
+    }
+}
+video::-webkit-media-controls-volume-slider {
+    display: none !important;
+}
+
+video::-webkit-media-controls-mute-button {
+    display: none !important;
+}
+#equipo .card:first-child {
+    border-top: 6px solid var(--azul);
+}
+
+#equipo .card:last-child {
+    border-top: 6px solid var(--naranja);
+}
+/* ================================
+   AJUSTES RESPONSIVE GENERALES
+================================ */
+
+/* Mejora lectura global */
+body {
+    font-size: 16px;
+}
+
+/* Secciones más respiradas en móvil */
+@media (max-width: 768px) {
+
+    section {
+        padding: 60px 20px;
+    }
+
+    /* Header */
+    header {
+        padding: 15px 20px;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    nav a {
+        margin: 0;
+        font-size: 15px;
+    }
+
+    /* Hero */
+    .hero {
+        padding: 80px 20px;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+        line-height: 1.25;
+    }
+
+    .hero p {
+        font-size: 16px;
+        margin: 18px auto;
+    }
+
+    /* About */
+    .about {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    /* Cards */
+    .card {
+        padding: 25px 20px;
+    }
+
+    .card h3 {
+        font-size: 20px;
+    }
+
+    .card p {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    /* Services grid */
+    .services {
+        grid-template-columns: 1fr;
+    }
+
+    /* Carrusel */
+    .carousel {
+        gap: 12px;
+    }
+
+    .carousel > * {
+        width: 90%;
+    }
+
+    .carousel img,
+    .carousel video {
+        max-height: 360px;
+    }
+
+    /* Location tag */
+    .location-tag {
+        font-size: 12px;
+        padding: 4px 10px;
+    }
+
+    /* Formulario */
+    .form-container {
+        padding: 30px 20px;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+
+    /* Footer */
+    footer {
+        font-size: 14px;
+        padding: 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <img src="Imagenes/WhatsApp Image 2026-01-12 at 12.34.19 AM.jpeg" alt="Logo JS Construcción">
+        <strong>JS Construcción & Remodelación</strong>
+    </div>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#proyectos">Portafolio</a>
+        <a href="#cotizacion">Cotización</a>
+    </nav>
+</header>
+
+
+<section class="hero" id="inicio">
+<h1>Construcción y remodelación con calidad y cumplimiento</h1>
+<p>
+Especialistas en construcción, remodelación y adecuaciones locativas.
+Ejecutamos proyectos con gestión profesional en Bogotá y en todas las ciudades de Colombia.
+</p>
+<a href="#cotizacion" class="btn">Solicitar cotización</a>
+</section>
+
+<section id="nosotros">
+<h2>¿Quiénes somos?</h2>
+<div class="about">
+<p>
+JS Construcción & Remodelación es una empresa especializada en proyectos de
+construcción, remodelación y adecuaciones locativas para vivienda y comercio.
+<br><br>
+Ofrecemos soluciones funcionales, estéticas y duraderas, trabajando con
+materiales de calidad, mano de obra calificada y supervisión constante.
+</p>
+<img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e" style="width:100%;border-radius:12px;">
+</div>
+</section>
+<section id="equipo">
+    <h2>Representantes de la empresa</h2>
+
+    <p style="text-align:center;max-width:800px;margin:0 auto 40px;">
+        La empresa cuenta con un equipo responsable y especializado, encargado
+        de garantizar la correcta ejecución de cada proyecto, el control de calidad
+        y la atención permanente al cliente.
+    </p>
+
+    <div class="services">
+
+        <div class="card">
+            <h3>Jorge Suárez</h3>
+            <p><strong>Representante de la empresa · Maestro general</strong></p>
+            <p>
+                Representante de la empresa y maestro general de obra, encargado de la
+                planificación, coordinación y supervisión integral de los proyectos.
+                Atiende directamente cada etapa del proceso constructivo, asegurando
+                el cumplimiento técnico, la calidad de los acabados y la correcta
+                ejecución de la obra.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Julián Suárez</h3>
+            <p><strong>Especialista en obra liviana</strong></p>
+            <p>
+                Especialista en sistemas livianos de construcción, con énfasis en
+                drywall, cielos rasos, divisiones interiores y acabados asociados.
+                Responsable de la ejecución técnica de obra liviana, garantizando
+                precisión, funcionalidad y estética en cada proyecto.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section class="why">
+    <h2>Proceso de trabajo</h2>
+    <ul>
+        <li>Evaluación técnica inicial del proyecto y definición de alcances.</li>
+        <li>Presentación de cotización clara, detallada y transparente.</li>
+        <li>Inicio de obra con anticipo del <strong>50%</strong> para programación y adquisición de materiales.</li>
+        <li>Desarrollo del proyecto con supervisión constante y control de calidad, con un <strong>30%</strong> durante el avance de la obra.</li>
+        <li>Entrega final del proyecto y pago del <strong>20%</strong> restante.</li>
+    </ul>
+</section>
+
+
+<section id="garantia">
+    <h2>Garantía, forma de pago y cobertura</h2>
+
+    <div class="services">
+
+        <div class="card">
+            <h3>Garantía</h3>
+            <p>
+                Todos nuestros trabajos cuentan con garantía en mano de obra y acabados,
+                respaldando la correcta ejecución y durabilidad del proyecto entregado.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Forma de pago</h3>
+            <p>
+                Nuestro esquema de pago estándar se maneja de la siguiente manera:
+                <br><br>
+                <strong>50%</strong> al iniciar la obra<br>
+                <strong>30%</strong> durante el avance del proyecto<br>
+                <strong>20%</strong> al finalizar y entregar la obra
+                <br><br>
+                Estos porcentajes pueden ajustarse según el tipo de proyecto y lo acordado
+                contractualmente con el cliente, buscando siempre la mejor opción para ambas partes.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Cobertura</h3>
+            <p>
+                Prestamos nuestros servicios en todas las ciudades de Colombia,
+                con base de operación principal en <strong>Bogotá D.C.</strong>
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section id="cotizacion">
+<h2>Solicita tu cotización</h2>
+<div class="form-container">
+<form id="cotizacionForm">
+<input type="text" id="nombre" placeholder="Nombre completo" required>
+<input type="tel" id="telefono" placeholder="WhatsApp / Teléfono" required>
+<select id="servicio" required>
+<option value="">Tipo de servicio</option>
+<option>Construcción</option>
+<option>Remodelación</option>
+<option>Acabados</option>
+<option>Mantenimiento</option>
+</select>
+<input type="text" id="ciudad" placeholder="Ciudad">
+<textarea id="mensaje" placeholder="Describe tu proyecto"></textarea>
+<button type="submit" class="btn">Enviar por WhatsApp</button>
+</form>
+</div>
+</section>
+
+<footer>
+© 2026 JS Construcción & Remodelación · Todos los derechos reservados
+</footer>
+
+<a href="https://wa.me/573208624097"
+style="position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;padding:15px 22px;border-radius:50px;font-weight:bold;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,.3);z-index:1000;">
+WhatsApp
+</a>
+
+<script>
+document.getElementById("cotizacionForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const texto = `📋 *Nueva solicitud de cotización*%0A
+👤 Nombre: ${encodeURIComponent(nombre.value)}%0A
+📞 Teléfono: ${encodeURIComponent(telefono.value)}%0A
+🏗️ Servicio: ${encodeURIComponent(servicio.value)}%0A
+📍 Ciudad: ${encodeURIComponent(ciudad.value || "Bogotá")}%0A
+📝 Proyecto: ${encodeURIComponent(mensaje.value)}`;
+    window.open(`https://wa.me/573208624097?text=${texto}`, "_blank");
+    this.reset();
+});
+</script>
+
+</body>
+</html>
